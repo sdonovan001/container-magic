@@ -15,3 +15,4 @@ Application containerization has been around for a long time.  Its roots can be 
 * docker resume
 * docker kill
  
+If you want to follow along (and I hope that you do), you'll need root access to a Linux machine running a kernel that support cgroupsV2.  You'll also need a docker repo to push / pull a test image to / from and some sort of machine (Win, Mac, Linux) with Docker installed to build and push our test image to your repo.  For implementation details on the various commands, just drill down on the links in the list above
