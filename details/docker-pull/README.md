@@ -13,3 +13,6 @@ When a container is launched from an image, an overlay file system creates a thi
 * **Isolation:** Changes in one container do not affect other containers or the base image.
 * **Speed:** New containers can be launched almost instantly as they don't require copying entire images.
 * **Resource Efficiency:** Only the modified data is stored, saving disk space and I/O.
+
+### Efficient Updates and Rollbacks
+The layered structure facilitates incremental updates. When an image is updated, only the changed layers need to be downloaded, not the entire image. This also enables easy rollbacks to previous versions by simply pointing to an older set of layers.  Overlay file systems simplify the management of image layers and container data, providing a robust and efficient mechanism for Docker to handle its core operations.
