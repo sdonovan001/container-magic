@@ -1,4 +1,4 @@
-## docker pull 
+## docker pull \<your-repo-name\>/chart-app:1.0
 The docker pull command downloads a container image from a remote registry to your local machine.
 
 ## Union File System
