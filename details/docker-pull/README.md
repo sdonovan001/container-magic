@@ -10,6 +10,6 @@ Docker images are composed of multiple read-only layers. Overlay file systems al
 ### Copy-on-Write for Container Isolation and Performance
 When a container is launched from an image, an overlay file system creates a thin, writable layer on top of the read-only image layers. Any modifications made within the container are written only to this new, upper layer, leaving the original image layers untouched. This CoW mechanism ensures:
 
-* Isolation: Changes in one container do not affect other containers or the base image.
-* Speed: New containers can be launched almost instantly as they don't require copying entire images.
-* Resource Efficiency: Only the modified data is stored, saving disk space and I/O.
+* **Isolation:** Changes in one container do not affect other containers or the base image.
+* **Speed:** New containers can be launched almost instantly as they don't require copying entire images.
+* **Resource Efficiency:** Only the modified data is stored, saving disk space and I/O.
