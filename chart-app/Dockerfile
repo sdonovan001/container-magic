@@ -1,5 +1,5 @@
 # Use a slim Python base image
-FROM --platform=linux/amd64 python:3.9-slim
+FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /app
