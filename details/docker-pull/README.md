@@ -16,3 +16,9 @@ When a container is launched from an image, an overlay file system creates a thi
 
 ### Efficient Updates and Rollbacks
 The layered structure facilitates incremental updates. When an image is updated, only the changed layers need to be downloaded, not the entire image. This also enables easy rollbacks to previous versions by simply pointing to an older set of layers.  Overlay file systems simplify the management of image layers and container data, providing a robust and efficient mechanism for Docker to handle its core operations.
+
+## Implementation Details
+### gcrane
+### Extract Manifest
+### Process Configs
+### Extract Layers
