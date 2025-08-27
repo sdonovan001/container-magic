@@ -25,4 +25,4 @@ We are cheating a bit on the pull command.  While it is interesting to explore t
 A container manifest is a JSON document that serves as a detailed description of an image. It is designed to be consumed by a container runtime, such as the Docker engine, to understand and correctly execute the image. We will use information in the manifest to extract and mount the images root file system, identify / export required environment variables and find the entrypoint of the image.
 
 ### Extract Layers
-If we want to be able to quickly transition a puled image to a running container, we should uncompress and untar all of the layers that make up the root file system of the image.
+If we want to be able to quickly transition a pulled image to a running container, we should uncompress and untar all of the layers that make up the root file system of the image.
