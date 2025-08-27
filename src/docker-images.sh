@@ -28,7 +28,7 @@ echo "-----------"
 
 if [ -d  "${image_root}" ]
 then
-   ls -ltr /var/lib/oci | grep -v "total 0" | grep -v containers | awk '{ print $9 }' | sed "s/\(.*\)-/\1:/"
+   ls -ltr ${image_root} | grep -v "total 0" | grep -v containers | awk '{ print $9 }' | sed "s/\(.*\)-/\1:/"
 else
    echo "No local images found!  Try a ./docker-pull.sh"
 fi
