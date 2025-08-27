@@ -19,6 +19,7 @@ The layered structure facilitates incremental updates. When an image is updated,
 
 ## Implementation Details
 ### gcrane
+We are cheating a bit on the pull command.  While it is interesting to explore the details of container runtime implementation WRT Linux kernel functionality, exploring the details of the image format and the minutia of how to replicate it with bash... not so much.  Our docker-pull.sh script will leverage [gcrane](https://github.com/google/go-containerregistry/blob/main/cmd/gcrane/README.md).  Gcrane is a tool created by Google to help you efficiently migrate and manage container images.  It is NOT a container runtime but its functionality is a subset of a container runtime.
 ### Extract Manifest
 ### Process Configs
 ### Extract Layers
