@@ -1,4 +1,4 @@
-## docker pull \<your-repo-name\>/chart-app:1.0
+## docker-pull.sh \<your-repo-name\>/chart-app:1.0
 The docker pull command downloads a container image from a remote registry to your local machine and stores it in [OCI](https://opencontainers.org/) format.  It then performs a bit of processing on the downloaded artifacts so that the image can quickly be transitioned into running state. 
 
 ## Union File System
