@@ -26,3 +26,6 @@ A container manifest is a JSON document that serves as a detailed description of
 
 ### Extract Layers
 If we want to be able to quickly transition a pulled image to a running container, we should uncompress and untar all of the layers that make up the root file system of the image.
+
+### Caveat
+The docker-pull.sh command is only capable of downloading one image at a time.  The command completly replaces the image root directory on each invocation.
