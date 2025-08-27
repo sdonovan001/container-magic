@@ -1,5 +1,5 @@
 ## docker pull \<your-repo-name\>/chart-app:1.0
-The docker pull command downloads a container image from a remote registry to your local machine and stores it in OSI format.  It then performs a bit of processing on the downloaded artifacts so that the image can quickly be transitioned into running state. 
+The docker pull command downloads a container image from a remote registry to your local machine and stores it in OCI format.  It then performs a bit of processing on the downloaded artifacts so that the image can quickly be transitioned into running state. 
 
 ## Union File System
 Docker leverages a union file systems, such as OverlayFS, primarily for its ability to implement copy-on-write (CoW) semantics and layered file systems, which are fundamental to Docker's efficiency and functionality.
