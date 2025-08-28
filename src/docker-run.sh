@@ -67,6 +67,10 @@ clean_up() {
 trap clean_up EXIT
 
 mount_storage() {
+   
+   UPPER_DIR="${CONTAINER_DIR}/upper"
+   WORK_DIR="${CONTAINER_DIR}/work"
+
    mkdir -p "${MOUNT_POINT}"
    mkdir -p "${UPPER_DIR}"
    mkdir -p "${WORK_DIR}"
@@ -150,8 +154,6 @@ fi
 CONTAINER_ID=$(uuidgen)
 MOUNT_POINT="/mnt/${CONTAINER_ID}"
 CONTAINER_DIR="/var/lib/oci/containers/${CONTAINER_ID}"
-UPPER_DIR="${CONTAINER_DIR}/upper"
-WORK_DIR="${CONTAINER_DIR}/work"
 
 APP_ID=$1
 APP_ID="${APP_ID//:/-}"
