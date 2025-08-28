@@ -208,5 +208,4 @@ limit_cpu ${max_cpu}
 # chroot command changes the root directory to the same directory we just mounted our
 # images file system to and then runs /bin/bash.  /bin/bash mounts /proc and then
 # then executes the entrypoint of our container (starts the container).
-#unshare --pid --fork --kill-child --mount-proc chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; ${entrypoint}"
 unshare --pid --fork --kill-child --mount chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; /bin/bash"
