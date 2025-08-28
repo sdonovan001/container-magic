@@ -64,20 +64,18 @@ clean_up() {
    exit 0
 }
 
-trap clean_up EXIT
-
 mount_storage() {
-   
-   UPPER_DIR="${CONTAINER_DIR}/upper"
-   WORK_DIR="${CONTAINER_DIR}/work"
+   upper_dir="${CONTAINER_DIR}/upper"
+   work_dir="${CONTAINER_DIR}/work"
+   lower_dirs=$(cat /var/lib/oci/${APP_ID}/lower_layers.dat)
 
    mkdir -p "${MOUNT_POINT}"
-   mkdir -p "${UPPER_DIR}"
-   mkdir -p "${WORK_DIR}"
+   mkdir -p "${upper_dir}"
+   mkdir -p "${work_dir}"
 
    # Mount the OverlayFS
    log "INFO" "Mounting image: ${APP_ID} to ${MOUNT_POINT}"
-   mount -t overlay overlay -o lowerdir="${LOWER_DIRS}",upperdir="${UPPER_DIR}",workdir="${WORK_DIR}" "$MOUNT_POINT"
+   mount -t overlay overlay -o lowerdir="${lower_dirs}",upperdir="${upper_dir}",workdir="${work_dir}" "$MOUNT_POINT"
 
    # Check if the mount was successful
    if [ $? -eq 0 ]; then
@@ -85,7 +83,7 @@ mount_storage() {
    else
        log "ERROR" "Mounting image $APP_ID failed"
    fi
-   log "INFO" "Mounting RW layer to ${UPPER_DIR}"
+   log "INFO" "Mounting RW layer to ${upper_dir}"
 
    # setup mounts for system dirs...
    for mp in /dev /dev/pts; do
@@ -125,18 +123,52 @@ limit_memory() {
    echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control
    echo "${memory_limit_mb}M" > /sys/fs/cgroup/${CONTAINER_ID}/memory.max
    echo $$ > /sys/fs/cgroup/${CONTAINER_ID}/cgroup.procs
+   log "INFO" "Limiting max memory to ${memory_limit_mb}MB"
 }
 
 limit_cpu() {
-   max=$1
-   period=$2
+   max_cpu=$1
+
+   cpu_percent=$(echo | awk -v max_cpu=${max_cpu} '{ print max_cpu * 100 }')
+   log "INFO" "Limiting max CPU to ${cpu_percent}% of a core"
+
+   period=100000
+   max_cpu=$(echo | awk -v max_cpu=${max_cpu} -v period=${period} '{ print max_cpu * period }')
 
    echo "+cpu" > /sys/fs/cgroup/cgroup.subtree_control
-   echo "${max} ${period}" > /sys/fs/cgroup/${CONTAINER_ID}/cpu.max
+   echo "${max_cpu} ${period}" > /sys/fs/cgroup/${CONTAINER_ID}/cpu.max
+}
+
+usage() {
+   echo ""
+   echo "Usage: $0 <IMAGE> <MAX-MEMORY> <MAX-CPU>"
+   echo "Description:    This script creates and starts a new container from an"
+   echo "                image."
+   echo ""
+   echo "Options:"
+   echo "  -h            Display this usage message and exit."
+   echo ""
+   echo "Arguments:"
+   echo "  IMAGE:        Name of the image to create and start a running container"
+   echo "                from."
+   echo "  MAX-MEMORY:   The maximum amount of memory (in MBs) the applications running"
+   echo "                inside the container will be allowed to consume.  If they exceed"
+   echo "                this value they will be OMM killed."
+   echo "  MAX-CPU:      The amount of a single CPU the applications running inside"
+   echo "                this container will be allowed to consume.  Value must be"
+   echo "                between 0.1 - 1.0 where 0.1 whould be 10% of a CPU and 1.0"
+   echo "                would be 100% of a CPU."
+   echo ""
 }
 
 ############################ main ################################
-image_name=$1
+# Correct number of command line aregs supplied?
+if [ "$#" -lt 3 ]
+then
+   echo "Error: Not enough args!"
+   usage
+   exit 1
+fi
 
 # Must be root
 if [ "$(id -u)" -ne 0 ]; then
@@ -144,26 +176,37 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Check if image ID is provided
-if [ -z "$image_name" ]; then
-    log "ERROR" "Must provide <image_id> to run!"
-    log "ERROR" "Usage: $0 <image_id>"
-    exit 1
-fi
+trap clean_up EXIT
+
+image_name=$1
+max_memory=$2
+max_cpu=$3
 
 CONTAINER_ID=$(uuidgen)
 MOUNT_POINT="/mnt/${CONTAINER_ID}"
 CONTAINER_DIR="/var/lib/oci/containers/${CONTAINER_ID}"
 
-APP_ID=$1
+APP_ID=${image_name}
 APP_ID="${APP_ID//:/-}"
-LOWER_DIRS=$(cat /var/lib/oci/${APP_ID}/lower_layers.dat)
 
+# The mount_storage function utilizes overlayFS to merge all of the layers of the 
+# image into a single unified directory by placing each layer on top of each other. 
 mount_storage
+
+# The export_environment and get_entrypoint functions just read data droppings left
+# by the docker-pull.sh command.  Nothing special is going on here.
 export_environment
 entrypoint=$(get_entrypoint)
 
-limit_memory 800 
-limit_cpu 50000 100000
+# The limit_memory and limit_cpu functions utilize cgroups to limit both the memory and
+# CPU resources that can be consumed by the processes running inside of the container.
+limit_memory ${max_memory} 
+limit_cpu ${max_cpu}
 
-unshare --pid --fork --kill-child --mount-proc chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; ${entrypoint}"
+# There's quite a bit of 'MAGIC' on this single line.  The unshare command creates a
+# couple of new namespaces (PID and mount) and runs the chroot command in them.  The
+# chroot command changes the root directory to the same directory we just mounted our
+# images file system to and then runs /bin/bash.  /bin/bash mounts /proc and then
+# then executes the entrypoint of our container (starts the container).
+#unshare --pid --fork --kill-child --mount-proc chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; ${entrypoint}"
+unshare --pid --fork --kill-child --mount chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; /bin/bash"

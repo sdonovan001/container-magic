@@ -33,4 +33,4 @@ fi
 ns_pid=$(ps -aef|grep $1|grep unshare|awk '{ print $2 }')
 child_pid=$(ps --ppid ${ns_pid}|grep -v PID|awk '{ print $1 }')
 
-nsenter -a -t ${child_pid} /bin/bash -c "mount -t proc proc /proc; export PS1=\"[\u@$1]$ \"; $2"
+nsenter -a -t ${child_pid} -w -r /bin/bash -c "mount -t proc proc /proc; export PS1=\"[\u@$1]$ \"; $2"
