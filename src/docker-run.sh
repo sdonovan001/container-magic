@@ -56,9 +56,9 @@ clean_up() {
    rmdir /sys/fs/cgroup/${CONTAINER_ID}
 
    if [ $? -eq 0 ]; then
-      log "INFO" "Removed cgroup ${CONTAINER_ID}"
+      log "INFO" "Removed cgroup /sys/fs/cgroup/${CONTAINER_ID}"
    else
-      log "WARN" "Could not remove cgroup ${CONTAINER_ID}"
+      log "WARN" "Could not remove cgroup /sys/fs/cgroup/${CONTAINER_ID}"
    fi
 
    exit 0
@@ -116,27 +116,35 @@ get_entrypoint() {
    echo "${entrypoint}"
 }
 
+create_cgroup(){
+   echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control
+   echo "+cpu" > /sys/fs/cgroup/cgroup.subtree_control
+   mkdir -p /sys/fs/cgroup/${CONTAINER_ID}
+
+   log "INFO" "Creating cgroup /sys/fs/cgroup/${CONTAINER_ID}"
+}
+
 limit_memory() {
    memory_limit_mb=$1
-
-   mkdir -p /sys/fs/cgroup/${CONTAINER_ID}
-   echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control
    echo "${memory_limit_mb}M" > /sys/fs/cgroup/${CONTAINER_ID}/memory.max
-   echo $$ > /sys/fs/cgroup/${CONTAINER_ID}/cgroup.procs
+
    log "INFO" "Limiting max memory to ${memory_limit_mb}MB"
 }
 
 limit_cpu() {
    max_cpu=$1
-
-   cpu_percent=$(echo | awk -v max_cpu=${max_cpu} '{ print max_cpu * 100 }')
-   log "INFO" "Limiting max CPU to ${cpu_percent}% of a core"
-
    period=100000
+   cpu_percent=$(echo | awk -v max_cpu=${max_cpu} '{ print max_cpu * 100 }')
    max_cpu=$(echo | awk -v max_cpu=${max_cpu} -v period=${period} '{ print max_cpu * period }')
-
-   echo "+cpu" > /sys/fs/cgroup/cgroup.subtree_control
    echo "${max_cpu} ${period}" > /sys/fs/cgroup/${CONTAINER_ID}/cpu.max
+
+   log "INFO" "Limiting max CPU to ${cpu_percent}% of a core"
+}
+
+enter_cgroup() {
+   echo $$ > /sys/fs/cgroup/${CONTAINER_ID}/cgroup.procs
+
+   log "INFO" "PID $$ entering cgroup /sys/fs/cgroup/${CONTAINER_ID}"
 }
 
 usage() {
@@ -198,14 +206,17 @@ mount_storage
 export_environment
 entrypoint=$(get_entrypoint)
 
-# The limit_memory and limit_cpu functions utilize cgroups to limit both the memory and
-# CPU resources that can be consumed by the processes running inside of the container.
+# The create_cgroup, limit_memory, limit_cpu and enter_cgroup functions utilize cgroups
+# to limit both the memory and CPU resources that can be consumed by the processes 
+# running inside of the container.
+create_cgroup
 limit_memory ${max_memory} 
 limit_cpu ${max_cpu}
+enter_cgroup
 
 # There's quite a bit of 'MAGIC' on this single line.  The unshare command creates a
 # couple of new namespaces (PID and mount) and runs the chroot command in them.  The
 # chroot command changes the root directory to the same directory we just mounted our
 # images file system to and then runs /bin/bash.  /bin/bash mounts /proc and then
 # then executes the entrypoint of our container (starts the container).
-unshare --pid --fork --kill-child --mount chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; /bin/bash"
+unshare --pid --fork --kill-child --mount chroot ${MOUNT_POINT} /bin/bash -c "mount -t proc proc /proc; ${entrypoint}"
