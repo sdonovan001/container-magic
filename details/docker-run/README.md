@@ -10,4 +10,4 @@ The `mount_storage` function mounts the images layers as an overlay file system.
 ### Cgroups
 The `create_cgroup`, `limit_cpu`, `limit_memory` and `enter_cgroup` functions each play their respective part in limiting CPU and memory consuption of all processes running inside the container.  Note: Our bash CRI only limits CPU and memory.
 ### Namespaces
-The last line of the `docker-run.sh` script creates a new PID and mount namespace and executes our containers entrypoint after `chroot`ing to the new file system mounted by the `mount_storage` function.
+The last line of the `docker-run.sh` script creates a new PID and mount namespace and executes our containers entrypoint after `chroot`ing to the new file system mounted by the `mount_storage` function.  Note: Our bash CRI only supports host networking.  Bridge networking could be implemented by leveraging the network namespace (an exercise for the reader perhaps).
