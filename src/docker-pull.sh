@@ -2,7 +2,7 @@
 
 usage() {
    echo ""
-   echo "Usage: $0 <IMAGE>"
+   echo "Usage: $0 <repo>/<image>:<label>"
    echo "Description:    This script downloads container images from a "
    echo "                container registry to your local machine."
    echo ""
@@ -10,11 +10,15 @@ usage() {
    echo "  -h            Display this usage message and exit."
    echo ""
    echo "Arguments:"
-   echo "  IMAGE:        Name of the image to pull from the remote repo."
+   echo "  repo:         Name of the docker repo to pull from."
+   echo "  image:        Name of the image to pull from the remote repo."
+   echo "  label:        Label attached to the image."
    echo ""
 }
 
 gcrane_pull() {
+   # Punt on having to script all the authentication, JSON parsing, layer inspection and
+   # downloads by just piggybacking on gcrane.
    echo ""
    echo "Pulling image ${image_uri}"
    gcrane pull ${image_uri} "${containers_root}/${image_name}" --format oci
@@ -38,7 +42,7 @@ process_configs() {
    config_digest="${config_digest##*:}"
    config_digest="${config_digest%?}"
 
-   # process this a bit for later use (like when it's time to run the image)
+   # process these a bit for later use (like when it's time to run the image)
    environment=$(cat "${containers_root}/${image_name}/blobs/sha256/${config_digest}" | jq '.config.Env')
    entrypoint=$(cat "${containers_root}/${image_name}/blobs/sha256/${config_digest}" | jq '.config.Entrypoint')
    echo ${environment} > "${containers_root}/${image_name}/environment.json"
