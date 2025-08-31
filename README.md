@@ -8,12 +8,12 @@ While Docker and other container runtimes may seem like magic I assure you they 
 
 * [docker pull](/doc/README.md#docker-pull)
 * [docker images](/doc/README.md#docker-images)
-* [docker run](/details/docker-run/README.md)
-* [docker ps](/details/docker-ps/README.md)
-* [docker exec](/details/docker-exec/README.md)
-* [docker pause](/details/docker-pause/README.md)
-* [docker unpause](/details/docker-unpause/README.md)
-* [docker kill](/details/docker-kill/README.md)
+* [docker run](/doc/README.md#docker-run)
+* [docker ps](/doc/README.md#docker-ps)
+* [docker exec](/doc/README.md#docker-exec)
+* [docker pause](/doc/README.md#docker-pause)
+* [docker unpause](/doc/README.md#docker-unpause)
+* [docker kill](/doc/README.md#docker-kill)
  
 ## Prerequisites
 If you want to kick the tires (and I hope that you do), you'll need root access to a Linux machine running a kernel that support cgroups v2 (you can verify this by running `[root@host-name]# stat -fc %T /sys/fs/cgroup/` on the command line). This machine won't need a container runtime installed because that functionality is provided by the scripts in this repo. You'll also need a docker repo to push / pull a test image to / from and some sort of machine (Win, Mac, Linux) with Docker installed to build and push the test image to your repo.
