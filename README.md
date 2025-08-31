@@ -21,4 +21,5 @@ If you want to kick the tires (and I hope that you do), you'll need root access 
 ## Start Your Journey Here
 The video below contains a test drive of our bash based container runtime.  I would start by watching it so you have a clear understanding of what we've implemented. After watching the video, go to the [chart-app](/chart-app/README.md) directory and build / push the test image.  At this point you can explore the scripts for yourself.  
 <p> </p>
-**Note:** You can drill down on the links of each individual command for usage doc.
+
+__Note:__ You can drill down on the links of each individual command for usage doc.
