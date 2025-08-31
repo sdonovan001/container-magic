@@ -1,5 +1,5 @@
 ## Usage Documantation
-### docker pull
+## docker pull
 ```
 [root@host-name]# ./docker-pull.sh -h
 
@@ -15,7 +15,7 @@ Arguments:
   image:        Name of the image to pull from the remote repo.
   label:        Label attached to the image.
 ```
-### docker images
+## docker images
 ```
 [root@host-name]# ./docker-images.sh -h
 
@@ -37,7 +37,7 @@ Error: Not enough args!
 Usage: ./docker-run.sh <image> <max-memory> <max-cpu>
 Description:    This script creates and starts a new container from an image.
 
-Options:
+Options:pause
   -h            Display this usage message and exit.
 
 Arguments:
@@ -51,3 +51,12 @@ Arguments:
                 between 0.1 - 1.0 where 0.1 whould be 10% of a CPU and 1.0
                 would be 100% of a CPU.
 ```
+## docker ps
+
+## docker exec
+
+## docker pause
+
+## docker unpause
+
+## docker kill
