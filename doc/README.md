@@ -69,7 +69,7 @@ Arguments:
 ```
 [root@host-name]# ./docker-exec.sh -h
 
-Usage: ./docker-exec.sh <container_id> <cmd>
+Usage: ./docker-exec.sh <container-id> <cmd>
 Description:    This script allows you to execute commands inside a
                 running container.
 
@@ -77,7 +77,7 @@ Options:
   -h            Display this usage message and exit.
 
 Arguments:
-  container_id: Unique identifier of the running container.  Can be
+  container-id: Unique identifier of the running container.  Can be
                 found by running ./docker-ps.sh.
   cmd:          Command to execute inside the running container.
 ```
@@ -85,7 +85,7 @@ Arguments:
 ```
 [root@host-name]# ./docker-pause.sh -h
 
-Usage: ./docker-pause.sh <container_id>
+Usage: ./docker-pause.sh <container-id>
 Description:    This script pauses a running container causing all
                 processes inside the container to be suspended.
 
@@ -93,14 +93,14 @@ Options:
   -h            Display this usage message and exit.
 
 Arguments:
-  container_id: Unique identifier of the running container.  Can
-                be found by running ./docker-ps.sh.
+  container-id: Unique identifier of the running container.  Can be
+                found by running ./docker-ps.sh.
 ```
 ## docker unpause
 ```
 [root@host-name]# ./docker-unpause.sh -h
 
-Usage: ./docker-unpause.sh <container_id>
+Usage: ./docker-unpause.sh <container-id>
 Description:    This script unpauses a running container causing all
                 processes inside the container to be resumed.
 
@@ -108,22 +108,22 @@ Options:
   -h            Display this usage message and exit.
 
 Arguments:
-  container_id: Unique identifier of the running container.  Can
-                be found by running ./docker-ps.sh.
+  container-id: Unique identifier of the running container.  Can be
+                found by running ./docker-ps.sh.
 ```
 ## docker kill
 ```
 [root@crane-client src]# ./docker-kill.sh -h
 
-Usage: ./docker-kill.sh <container_id>
+Usage: ./docker-kill.sh <container-id>
 Description:    This script kills the running container that maps 
-                to the container_id passed in.  All child processes
+                to the container-id passed in.  All child processes
                 running inside the container will also be killed.
 
 Options:
   -h            Display this usage message and exit.
 
 Arguments:
-  container_id: Unique identifier of the running container.  Can be
+  container-id: Unique identifier of the running container.  Can be
                 found by running ./docker-ps.sh.
 ```
