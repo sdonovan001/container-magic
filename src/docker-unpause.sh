@@ -2,7 +2,7 @@
 
 usage() {
    echo ""
-   echo "Usage: $0 <container_id>"
+   echo "Usage: $0 <container-id>"
    echo "Description:    This script unpauses a running container causing all"
    echo "                processes inside the container to be resumed."
    echo ""
@@ -10,8 +10,8 @@ usage() {
    echo "  -h            Display this usage message and exit."
    echo ""
    echo "Arguments:"
-   echo "  container_id: Unique identifier of the running container.  Can"
-   echo "                be found by running ./docker-ps.sh."
+   echo "  container-id: Unique identifier of the running container.  Can be"
+   echo "                found by running ./docker-ps.sh."
    echo ""
 }
 

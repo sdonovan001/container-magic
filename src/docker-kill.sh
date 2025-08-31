@@ -2,7 +2,7 @@
 
 usage() {
    echo ""
-   echo "Usage: $0 <container_id>"
+   echo "Usage: $0 <container-id>"
    echo "Description:    This script kills the running container that maps "
    echo "                to the container_id passed in.  All child processes"
    echo "                running inside the container will also be killed."
@@ -11,7 +11,7 @@ usage() {
    echo "  -h            Display this usage message and exit."
    echo ""
    echo "Arguments:"
-   echo "  container_id: Unique identifier of the running container.  Can be"
+   echo "  container-id: Unique identifier of the running container.  Can be"
    echo "                found by running ./docker-ps.sh."
    echo ""
 }

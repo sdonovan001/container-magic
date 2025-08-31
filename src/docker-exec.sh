@@ -2,7 +2,7 @@
 
 usage() {
    echo ""
-   echo "Usage: $0 <container_id> <cmd>"
+   echo "Usage: $0 <container-id> <cmd>"
    echo "Description:    This script allows you to execute commands inside a"
    echo "                running container."
    echo ""
@@ -10,9 +10,9 @@ usage() {
    echo "  -h            Display this usage message and exit."
    echo ""
    echo "Arguments:"
-   echo "  CONTAINER_ID: Unique identifier of the running container.  Can be"
+   echo "  container-id: Unique identifier of the running container.  Can be"
    echo "                found by running ./docker-ps.sh."
-   echo "  CMD:          Command to execute inside the running container."
+   echo "  cmd:          Command to execute inside the running container."
    echo ""
 }
 
