@@ -29,3 +29,25 @@ Options:
 Arguments:
   None
 ```
+### docker run
+```
+[root@crane-client src]# ./docker-run.sh -h
+Error: Not enough args!
+
+Usage: ./docker-run.sh <image> <max-memory> <max-cpu>
+Description:    This script creates and starts a new container from an image.
+
+Options:
+  -h            Display this usage message and exit.
+
+Arguments:
+  image:        Name of the image to create and start a running container
+                from.
+  max-memory:   The maximum amount of memory (in MBs) the applications running
+                inside the container will be allowed to consume.  If they exceed
+                this value they will be OMM killed.
+  max-cpu:      The amount of a single CPU the applications running inside
+                this container will be allowed to consume.  Value must be
+                between 0.1 - 1.0 where 0.1 whould be 10% of a CPU and 1.0
+                would be 100% of a CPU.
+```
