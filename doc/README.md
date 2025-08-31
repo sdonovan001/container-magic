@@ -82,7 +82,20 @@ Arguments:
   cmd:          Command to execute inside the running container.
 ```
 ## docker pause
+```
+[root@crane-client src]# ./docker-pause.sh -h
 
+Usage: ./docker-pause.sh <container_id>
+Description:    This script pauses a running container causing all
+                processes inside the container to be suspended.
+
+Options:
+  -h            Display this usage message and exit.
+
+Arguments:
+  container_id: Unique identifier of the running container.  Can
+                be found by running ./docker-ps.sh.
+```
 ## docker unpause
 
 ## docker kill
