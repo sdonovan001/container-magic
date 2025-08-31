@@ -16,7 +16,7 @@ While Docker and other container runtimes may seem like magic I assure you they 
 * [docker kill](/doc/README.md#docker-kill)
  
 ## Prerequisites
-If you want to kick the tires (and I hope that you do), you'll need root access to a Linux machine running a kernel that support cgroups v2 (you can verify this by running `[root@host-name]# stat -fc %T /sys/fs/cgroup/` on the command line). This machine won't need a container runtime installed because that functionality is provided by the scripts in this repo. You'll also need a docker repo to push / pull a test image to / from and some sort of machine (Win, Mac, Linux) with Docker installed to build and push the test image to your repo.
+If you want to kick the tires (and I hope that you do), you'll need root access to a Linux machine running a kernel that support cgroups v2 (you can verify this by running `[root@host-name]# stat -fc %T /sys/fs/cgroup/` on the command line). This machine won't need a container runtime installed because that functionality is provided by the scripts in this repo. This machine will, however, need [gcrane](https://github.com/google/go-containerregistry/blob/main/cmd/gcrane/README.md) installed into `/usr/local/bin`.  You'll also need a docker repo to push / pull a test image to / from and some sort of machine (Win, Mac, Linux) with Docker installed to build and push the test image to your repo.
 
 ## Start Your Journey Here
 The video below contains a test drive of our bash based container runtime.  I would start by watching it so you have a clear understanding of what we've implemented. After watching the video, go to the [chart-app](/chart-app/README.md) directory and build / push the test image.  At this point you can explore the scripts for yourself.  
