@@ -1,4 +1,5 @@
-## Usage Documantation
+# Usage Documantation
+
 ## docker pull
 ```
 [root@host-name]# ./docker-pull.sh -h
@@ -31,7 +32,7 @@ Arguments:
 ```
 ## docker run
 ```
-[root@crane-client src]# ./docker-run.sh -h
+[root@host-name]# ./docker-run.sh -h
 Error: Not enough args!
 
 Usage: ./docker-run.sh <image> <max-memory> <max-cpu>
@@ -52,9 +53,34 @@ Arguments:
                 would be 100% of a CPU.
 ```
 ## docker ps
+```
+[root@crane-client src]# ./docker-ps.sh -h
 
+Usage: ./docker-ps.sh
+Description: This script displays running containers.
+
+Options:
+  -h         Display this usage message and exit.
+
+Arguments:
+  None
+```
 ## docker exec
+```
+[root@host-name]# ./docker-exec.sh -h
 
+Usage: ./docker-exec.sh <container_id> <cmd>
+Description:    This script allows you to execute commands inside a
+                running container.
+
+Options:
+  -h            Display this usage message and exit.
+
+Arguments:
+  container_id: Unique identifier of the running container.  Can be
+                found by running ./docker-ps.sh.
+  cmd:          Command to execute inside the running container.
+```
 ## docker pause
 
 ## docker unpause
