@@ -2,7 +2,7 @@
 
 ## docker pull
 ```
-[root@host-name]# ./docker-pull.sh -h
+[root@demo-host]# ./docker-pull.sh -h
 
 Usage: ./docker-pull.sh <repo>/<image>:<label>
 Description:    This script downloads container images from a 
@@ -18,7 +18,7 @@ Arguments:
 ```
 ## docker images
 ```
-[root@host-name]# ./docker-images.sh -h
+[root@demo-host]# ./docker-images.sh -h
 
 Usage: ./docker-images.sh
 Description: This script displays container images that have been 
@@ -32,7 +32,7 @@ Arguments:
 ```
 ## docker run
 ```
-[root@host-name]# ./docker-run.sh -h
+[root@demo-host]# ./docker-run.sh -h
 Error: Not enough args!
 
 Usage: ./docker-run.sh <image> <max-memory> <max-cpu>
@@ -54,7 +54,7 @@ Arguments:
 ```
 ## docker ps
 ```
-[root@crane-client src]# ./docker-ps.sh -h
+[root@demo-host]# ./docker-ps.sh -h
 
 Usage: ./docker-ps.sh
 Description: This script displays running containers.
@@ -67,7 +67,7 @@ Arguments:
 ```
 ## docker exec
 ```
-[root@host-name]# ./docker-exec.sh -h
+[root@demo-host]# ./docker-exec.sh -h
 
 Usage: ./docker-exec.sh <container-id> <cmd>
 Description:    This script allows you to execute commands inside a
@@ -83,7 +83,7 @@ Arguments:
 ```
 ## docker pause
 ```
-[root@host-name]# ./docker-pause.sh -h
+[root@demo-host]# ./docker-pause.sh -h
 
 Usage: ./docker-pause.sh <container-id>
 Description:    This script pauses a running container causing all
@@ -98,7 +98,7 @@ Arguments:
 ```
 ## docker unpause
 ```
-[root@host-name]# ./docker-unpause.sh -h
+[root@demo-host]# ./docker-unpause.sh -h
 
 Usage: ./docker-unpause.sh <container-id>
 Description:    This script unpauses a running container causing all
@@ -113,7 +113,7 @@ Arguments:
 ```
 ## docker kill
 ```
-[root@crane-client src]# ./docker-kill.sh -h
+[root@demo-host]# ./docker-kill.sh -h
 
 Usage: ./docker-kill.sh <container-id>
 Description:    This script kills the running container that maps 
