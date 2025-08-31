@@ -83,7 +83,7 @@ Arguments:
 ```
 ## docker pause
 ```
-[root@crane-client src]# ./docker-pause.sh -h
+[root@host-name]# ./docker-pause.sh -h
 
 Usage: ./docker-pause.sh <container_id>
 Description:    This script pauses a running container causing all
@@ -97,5 +97,33 @@ Arguments:
                 be found by running ./docker-ps.sh.
 ```
 ## docker unpause
+```
+[root@host-name]# ./docker-unpause.sh -h
 
+Usage: ./docker-unpause.sh <container_id>
+Description:    This script unpauses a running container causing all
+                processes inside the container to be resumed.
+
+Options:
+  -h            Display this usage message and exit.
+
+Arguments:
+  container_id: Unique identifier of the running container.  Can
+                be found by running ./docker-ps.sh.
+```
 ## docker kill
+```
+[root@crane-client src]# ./docker-kill.sh -h
+
+Usage: ./docker-kill.sh <container_id>
+Description:    This script kills the running container that maps 
+                to the container_id passed in.  All child processes
+                running inside the container will also be killed.
+
+Options:
+  -h            Display this usage message and exit.
+
+Arguments:
+  container_id: Unique identifier of the running container.  Can be
+                found by running ./docker-ps.sh.
+```
