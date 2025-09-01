@@ -23,3 +23,5 @@ The video below contains a test drive of our bash based container runtime.  I wo
 <p> </p>
 
 __Note:__ You can drill down on the links of each individual command for usage doc.
+
+[![something is broken](/images/video-5min.png)](https://www.youtube.com/embed/VGwlv0IKWGg "Container Magic")
