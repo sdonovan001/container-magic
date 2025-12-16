@@ -169,7 +169,7 @@ usage() {
 }
 
 ############################ main ################################
-
+# Need help
 if [ "$1" == "-h" ]
 then
    usage
@@ -179,6 +179,7 @@ fi
 # Correct number of command line aregs supplied?
 if [ "$#" -lt 3 ]
 then
+   echo "Error: Not enough args!"
    usage
    exit 1
 fi
