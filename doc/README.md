@@ -33,7 +33,6 @@ Arguments:
 ## docker run
 ```
 [root@demo-host]# ./docker-run.sh -h
-Error: Not enough args!
 
 Usage: ./docker-run.sh <image> <max-memory> <max-cpu>
 Description:    This script creates and starts a new container from an image.
