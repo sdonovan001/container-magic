@@ -46,7 +46,7 @@ Arguments:
                 from.
   max-memory:   The maximum amount of memory (in MBs) the applications running
                 inside the container will be allowed to consume.  If they exceed
-                this value they will be OMM killed.
+                this value they will be OOM killed.
   max-cpu:      The amount of a single CPU the applications running inside
                 this container will be allowed to consume.  Value must be
                 between 0.1 - 1.0 where 0.1 whould be 10% of a CPU and 1.0
