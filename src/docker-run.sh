@@ -172,7 +172,6 @@ usage() {
 # Correct number of command line aregs supplied?
 if [ "$#" -lt 3 ]
 then
-   echo "Error: Not enough args!"
    usage
    exit 1
 fi
