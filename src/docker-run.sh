@@ -169,6 +169,13 @@ usage() {
 }
 
 ############################ main ################################
+
+if [ "$1" == "-h" ]
+then
+   usage
+   exit 0
+fi
+
 # Correct number of command line aregs supplied?
 if [ "$#" -lt 3 ]
 then
